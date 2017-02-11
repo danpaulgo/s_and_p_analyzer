@@ -19,8 +19,8 @@ class AnalyzeData
   def self.market_crashes(fraction, time_in_months)
     crashes = []
     DataPoint.all.each do |datapoint|
-      #binding.pry
-      crashes << datapoint if datapoint.price <= (datapoint.historical_max.price * fraction) && (datapoint.id - datapoint.historical_max.id <= time_in_months)
+      # binding.pry
+      crashes << datapoint if datapoint.price <= datapoint.historical_max.price * fraction && (datapoint.id - datapoint.historical_max.id <= time_in_months)
     end
     crashes
   end
@@ -29,9 +29,10 @@ class AnalyzeData
     peaks = []
     market_crashes(fraction, time_in_months).each do |crash|
       DataPoint.all.each do |datapoint|
-        peaks << datapoint if datapoint.price == crash.historical_max.price && !peaks.include?(datapoint)
+        peaks << datapoint if datapoint.price == crash.historical_max.price && datapoint.price == datapoint.historical_max.price && !peaks.include?(datapoint)
       end
     end
+    peaks << max_within_period(peaks.last, DataPoint.all.last)
     peaks
   end
 
@@ -46,6 +47,7 @@ class AnalyzeData
       end
       mins << min_within_period(peak, peak_2)
     end
+    mins
   end
 
   def self.price_difference(datapoint_1, datapoint_2)
@@ -64,9 +66,7 @@ class AnalyzeData
   end
 
   def self.max_within_period(datapoint_1, datapoint_2)
-    datapoint_1 = DataPoint.find_by_date(datapoint_1)
-    datapoint_2 = DataPoint.find_by_date(datapoint_2)
-    timeframe(date_1,date_2).max_by do |datapoint|
+    timeframe(datapoint_1,datapoint_2).max_by do |datapoint|
       datapoint.price
     end
   end

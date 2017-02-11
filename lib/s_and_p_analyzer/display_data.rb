@@ -68,4 +68,9 @@ class DisplayData
       display_datapoint(AnalyzeData.annual_max(year.to_i))
     end
   end
+
+  def self.display_market_crash_info
+
+  end
+
 end
