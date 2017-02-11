@@ -19,8 +19,8 @@ class AnalyzeData
   def self.market_crashes(fraction, time_in_months)
     crashes = []
     DataPoint.all.each do |datapoint|
-      # binding.pry
-      crashes << datapoint if datapoint.price < (datapoint.historical_max.price * fraction) && (datapoint.id - datapoint.historical_max.id <= time_in_months)
+      #binding.pry
+      crashes << datapoint if datapoint.price <= (datapoint.historical_max.price * fraction) && (datapoint.id - datapoint.historical_max.id <= time_in_months)
     end
     crashes
   end

@@ -30,7 +30,7 @@ class CLI
       end
       case input
       when "1"
-        DisplayData.display_all
+        DisplayData.display_points(DataPoint.all)
       when "2"
         DisplayData.display_yearly
       when "3"
@@ -38,7 +38,7 @@ class CLI
       when "4"
         DisplayData.extended_info
       when "5"
-        puts "code 5"
+        DisplayData.display_max_by_year
       when "6"
         puts "code 6"
       when "7"
