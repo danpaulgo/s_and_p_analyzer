@@ -55,17 +55,10 @@ class DataPoint
     end
   end
 
-  def self.find_by_date
-    month = 0
-    year = 0
-    until month >= 1 && month <= 12 && year >= 1871 && year.to_s.split("").length == 4
-      print "Enter Date(mm/yyyy): "
-      date = gets.strip
-      month = date.split("/")[0].to_i
-      year = date.split("/")[1].to_i
-    end
+  def self.find_by_date(date)
+    date_array = date.split("/")
     all.detect do |datapoint|
-      datapoint.date.month == month && datapoint.date.year == year
+      datapoint.date.month == date_array[0].to_i && datapoint.date.year == date_array[1].to_i
     end
   end
 

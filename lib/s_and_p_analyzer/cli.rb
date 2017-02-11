@@ -34,15 +34,38 @@ class CLI
       when "2"
         DisplayData.display_yearly
       when "3"
-        DisplayData.display_by_year
+        valid_year = false
+        until valid_year == true
+          print "Enter year: "
+          year = gets.strip.to_i
+          valid_year = DisplayData.validate_year(year)
+        end
+        DisplayData.display_by_year(year)
       when "4"
-        DisplayData.extended_info
+        valid_date = false
+        until valid_date == true
+          print "Enter date (mm/yyyy): "
+          date = gets.strip
+          valid_date = DisplayData.validate_date(date)
+        end
+        DisplayData.extended_info(date)
       when "5"
         DisplayData.display_max_by_year
       when "6"
         puts "code 6"
       when "7"
-        puts "code 7"  
+        valid_dates = [false,false]
+        until valid_dates[0] == true
+          print "Enter first date (mm/yyyy): "
+          date_1 = gets.strip
+          valid_dates[0] = DisplayData.validate_date(date_1)
+        end
+        until valid_dates[1] == true
+          print "Enter second date (mm/yyyy): "
+          date_2 = gets.strip
+          valid_dates[1] = DisplayData.validate_date(date_2)
+        end
+        DisplayData.display_comparison_info(date_1, date_2)
       when "q"
         go = "n"
       end

@@ -5,19 +5,25 @@ class DisplayData
     sprintf('%.2f', price)
   end
 
-  def self.display_datapoint(datapoint)
-    # date = datapoint.date
-      # previous_month = Date.new(date.year, date.month-1, date.day)
-      # previous_month = Date.new(date.year-1, date.month, date.day)
-    puts "Date: #{datapoint.date.strftime('%b-%d-%Y')}     Price: $#{display_price(datapoint.price)}"
-    # puts "Change from #{datapoint.previous_month.strftime('%m/%d/%Y')}: $#{datapoint.monthly_change}"
-    # puts "Change from #{datapoint.previous_year.strftime('%m/%d/%Y')}: $#{datapoint.yearly_change}"
-    puts "-"*40
-    nil
+  def self.validate_date(date)
+    valid = false
+    date_array = date.split("/")
+    valid = true if date_array[0].to_i >= 1 && date_array[0].to_i <= 12 && date_array[1].to_i >= 1871 && date_array[1].to_i <= DataPoint.all.last.date.year
+    valid
   end
 
-  def self.extended_info
-    datapoint = DataPoint.find_by_date
+  def self.validate_year(year)
+    valid = false
+    valid = true if year >= 1871 && year <= DataPoint.all.last.date.year
+    valid
+  end
+
+  def self.display_datapoint(datapoint)
+    "Date: #{datapoint.date.strftime('%b-%d-%Y')}     Price: $#{display_price(datapoint.price)}"
+  end
+
+  def self.extended_info(date)
+    datapoint = DataPoint.find_by_date(date)
     puts "Date: #{datapoint.date.strftime('%B %d, %Y')}"
     puts "Price: $#{display_price(datapoint.price)}"
     puts "Change over previous month: $#{datapoint.monthly_change}"
@@ -28,7 +34,8 @@ class DisplayData
   def self.display_points(array)
     puts "-"*40
     array.each do |datapoint|
-      display_datapoint(datapoint)
+      puts display_datapoint(datapoint)
+      puts "-"*40
     end
   end
 
@@ -39,12 +46,7 @@ class DisplayData
     self.display_points(array)
   end
 
-  def self.display_by_year
-    year = 0
-      until year >= 1871 && year <= DataPoint.all.last.date.year
-        print "Enter year: "
-        year = gets.strip.to_i
-      end
+  def self.display_by_year(year)
     array = DataPoint.all.select do |point|
       point.date.year == year
     end
@@ -65,12 +67,35 @@ class DisplayData
       display_points(maximums)
     else
       puts "-"*40
-      display_datapoint(AnalyzeData.annual_max(year.to_i))
+      puts display_datapoint(AnalyzeData.annual_max(year.to_i))
+      puts "-"*40
     end
   end
 
   def self.display_market_crash_info
 
+  end
+
+  def self.display_comparison_info(date_1, date_2)
+    datapoint1 = DataPoint.find_by_date(date_1)
+    datapoint2 = DataPoint.find_by_date(date_2)
+    if datapoint1.date > datapoint2.date
+      datapoint1 = DataPoint.find_by_date(date_2)
+      datapoint2 = DataPoint.find_by_date(date_1)
+    end
+    difference = datapoint2.price - datapoint1.price
+    if difference >= 0
+      string_difference = "+$#{display_price(difference)}"
+    else
+      string_difference = "-$#{display_price(difference.abs)}"
+    end
+    puts "-"*40
+    puts "1. " + display_datapoint(datapoint1)
+    puts "2. " + display_datapoint(datapoint2)
+    puts "Change in price between #{datapoint1.date.strftime('%m/%d/%Y')} and #{datapoint2.date.strftime('%m/%d/%Y')}: #{string_difference}"
+    puts "Highest point between dates: "
+    puts "Lowest point between dates:"
+    puts "-"*40
   end
 
 end
