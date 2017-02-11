@@ -12,12 +12,13 @@ class DisplayData
     nil
   end
 
-  def self.extended_info(datapoint)
+  def self.extended_info
+    datapoint = DataPoint.find_by_date
     puts "Date: #{datapoint.date.strftime('%B %d, %Y')}"
     puts "Price: $#{datapoint.price}"
     puts "Change over previous month: $#{datapoint.monthly_change}"
     puts "Change over previous year: $#{datapoint.yearly_change}"
-    puts "Historical maximum(#{datapoint.historixal_max.date.strftime('%m/%d/%Y')}: #{historixal_max.price}
+    puts "Historical maximum(#{datapoint.historical_max.date.strftime('%m/%d/%Y')}): $#{datapoint.historical_max.price}"
   end
 
   def self.display_points(array)

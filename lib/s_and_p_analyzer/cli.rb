@@ -36,7 +36,7 @@ class CLI
       when "3"
         DisplayData.display_by_year
       when "4"
-        puts "code 4"
+        DisplayData.extended_info
       when "5"
         puts "code 5"
       when "6"

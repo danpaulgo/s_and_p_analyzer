@@ -43,19 +43,19 @@ class Scraper
   def self.array_to_datapoints
     # new_data_points = []
     webpage_to_html.reverse.each_with_index do |row, index|
-      price = row.css("td.right").text.gsub(",","").to_f
+      price = sprintf'%.2f', row.css("td.right").text.gsub(",","").to_f
       date = row.css("td.left").text
       # binding.pry
-      if price > 0.0 && !date.empty?
+      if price.to_f > 0.0 && !date.empty?
         dp = DataPoint.new
         dp.id = index
         dp.date = string_to_date(date)
         dp.price = price
-        if DataPoint.all[index-1].price > 0.0
-          dp.monthly_change = price - DataPoint.all[index-1].price
+        if DataPoint.all[index-1].price.to_f > 0.0
+          dp.monthly_change = price.to_f - DataPoint.all[index-1].price.to_f
         end
-        if !DataPoint.all[index-12].nil? && DataPoint.all[index-12].price > 0.0
-          dp.yearly_change = price - DataPoint.all[index-12].price
+        if !DataPoint.all[index-12].nil? && DataPoint.all[index-12].price.to_f > 0.0
+          dp.yearly_change = price.to_f - DataPoint.all[index-12].price.to_f
         end
         # new_data_points << dp
       end
