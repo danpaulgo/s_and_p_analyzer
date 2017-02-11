@@ -11,4 +11,6 @@ require "s_and_p_analyzer"
 # Pry.start
 
 require "irb"
+Scraper.array_to_datapoints
+DataPoint.set_historical_max
 IRB.start

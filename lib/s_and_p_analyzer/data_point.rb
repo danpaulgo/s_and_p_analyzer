@@ -46,31 +46,47 @@ class DataPoint
       end
       datapoint.historical_max = maximum
     end
+    nil
   end
 
-  def self.annual_max
-    annual_max_array = []
-    years = []
-    self.all.each do |point|
-      years << point.date.year if !years.include?(point.date.year)
+  def self.find_by_year(year)
+    all.select do |datapoint|
+      datapoint.date.year == year
     end
-    binding.pry
-    years.each do |year|
-      yearly_array = []
-      self.all.each do |point|
-        yearly_array << point if point.date.year == year
-      end
-      annual_max_price = 0
-      yearly_array.each do |month|
-        if month.price > annual_max_price
-          annual_max_price = month.price
-          annual_max = month
-        end
-      end
-      annual_max_array << annual_max
-    end
-    annual_max_array
   end
+
+  def self.find_by_date(string)
+    date_array = string.split("/")
+    month = date_array[0].to_i
+    year = date_array[1].to_i
+    all.detect do |datapoint|
+      datapoint.date.month == month && datapoint.date.year == year
+    end
+  end
+
+  # def self.annual_max
+  #   annual_max_array = []
+  #   years = []
+  #   self.all.each do |point|
+  #     years << point.date.year if !years.include?(point.date.year)
+  #   end
+  #   binding.pry
+  #   years.each do |year|
+  #     yearly_array = []
+  #     self.all.each do |point|
+  #       yearly_array << point if point.date.year == year
+  #     end
+  #     annual_max_price = 0
+  #     yearly_array.each do |month|
+  #       if month.price > annual_max_price
+  #         annual_max_price = month.price
+  #         annual_max = month
+  #       end
+  #     end
+  #     annual_max_array << annual_max
+  #   end
+  #   annual_max_array
+  # end
 
   
 
