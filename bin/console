@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-
+require_relative "../config/environment.rb"
 require "bundler/setup"
 require "s_and_p_analyzer"
 
