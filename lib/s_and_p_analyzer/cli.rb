@@ -18,6 +18,13 @@ class CLI
     puts "7. Compare two dates"
   end
 
+  def option_6
+    puts "Market crash definition"
+    decline >=1 && decline <= 100
+    until decline
+    decline = gets.chomp
+  end
+
   def start
     puts "\nWelcome to S&P Analyzer. Please choose from the following menu options:"
     puts "\n"
