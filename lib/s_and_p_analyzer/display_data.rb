@@ -93,9 +93,11 @@ class DisplayData
     end
     decline_float = 1.0 - (decline.to_f/100.0)
     market_peaks = AnalyzeData.market_peaks(decline_float, timespan)
-    market_crash_mins = AnalyzeData.market_crash_mins(decline_float, timespan)
-    market_peaks.each do ||
-
+    market_bottoms = AnalyzeData.market_crash_mins(decline_float, timespan)
+    market_peaks.each_with_index do |peak, index|
+      crash = Crash.new(peak, market_bottoms[index])
+      puts crash.peak.date.strftime("%B %d, %Y")
+      puts crash.bottom.date.strftime("%B %d, %Y")
     end
 
     # puts "\nMARKET PEAKS"

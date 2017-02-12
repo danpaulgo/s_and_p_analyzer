@@ -54,7 +54,7 @@ class CLI
       when "5"
         DisplayData.display_max_by_year
       when "6"
-        option_6
+        DisplayData.display_market_crash_info
       when "7"
         valid_dates = [false,false]
         until valid_dates[0] == true
