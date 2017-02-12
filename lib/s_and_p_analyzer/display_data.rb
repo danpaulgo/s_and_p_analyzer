@@ -89,13 +89,18 @@ class DisplayData
     else
       string_difference = "-$#{display_price(difference.abs)}"
     end
-    puts "-"*40
+    high = AnalyzeData.max_within_period(datapoint1,datapoint2)
+    low = AnalyzeData.min_within_period(datapoint1,datapoint2)
+    puts "-"*50
     puts "1. " + display_datapoint(datapoint1)
     puts "2. " + display_datapoint(datapoint2)
-    puts "Change in price between #{datapoint1.date.strftime('%m/%d/%Y')} and #{datapoint2.date.strftime('%m/%d/%Y')}: #{string_difference}"
-    puts "Highest point between dates: "
-    puts "Lowest point between dates:"
-    puts "-"*40
+    puts "\nChange in price between #{datapoint1.date.strftime('%m/%d/%Y')} and #{datapoint2.date.strftime('%m/%d/%Y')}:" 
+    puts "#{string_difference}"
+    puts "\nHighest point between #{datapoint1.date.strftime('%m/%d/%Y')} and #{datapoint2.date.strftime('%m/%d/%Y')}:"
+    puts display_datapoint(high)
+    puts "\nLowest point between #{datapoint1.date.strftime('%m/%d/%Y')} and #{datapoint2.date.strftime('%m/%d/%Y')}:"
+    puts display_datapoint(low)
+    puts "-"*50
   end
 
 end

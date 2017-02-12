@@ -19,15 +19,17 @@ class CLI
   end
 
   def start
-    puts "Welcome to S&P Analyzer. Please choose from the following menu options:"
+    puts "\nWelcome to S&P Analyzer. Please choose from the following menu options:"
+    puts "\n"
     go = "y"
     until go.downcase == "n"
       menu
       input = ""
       until input.downcase == "q" || (input.to_i >= 1 && input.to_i <= 7)
-        print "Item No. (or \"q\" to exit): "
+        print "\nItem No. (or \"q\" to exit): "
         input = gets.strip
       end
+      puts "\n"
       case input
       when "1"
         DisplayData.display_points(DataPoint.all)
@@ -70,8 +72,9 @@ class CLI
         go = "n"
       end
       if go != "n"
-        print "Would you like to complete another action? (y/n) "
+        print "\nWould you like to complete another action? (y/n) "
         go = gets.strip
+        puts "\n"
       end
     end
   end
