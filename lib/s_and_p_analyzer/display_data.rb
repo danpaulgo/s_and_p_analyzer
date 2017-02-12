@@ -85,11 +85,11 @@ class DisplayData
     decline = 0
     timespan = 0
     until decline >=1 && decline < 100
-      print "Set decrease percentage(1-99):"
+      print "Set decrease percentage(1-99): "
       decline = gets.strip.to_i
     end
     until timespan >= 1
-      print "Set timespan in months:"
+      print "Set timespan in months: "
       timespan = gets.strip.to_i
     end
     decline_float = 1.0 - (decline.to_f/100.0)

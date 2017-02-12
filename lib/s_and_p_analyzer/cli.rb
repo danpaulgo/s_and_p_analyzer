@@ -23,6 +23,7 @@ class CLI
     puts "\n"
     go = ""
     until go.downcase == "n"
+      go = ""
       menu
       input = ""
       puts "\n"

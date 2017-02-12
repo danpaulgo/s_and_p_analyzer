@@ -35,16 +35,24 @@ class AnalyzeData
     peaks
   end
 
+  def self.find_recovery(datapoint)
+    loop_id = datapoint.id + 1
+    recovered = false
+    until recovered == true || loop_id > DataPoint.all.count
+      if DataPoint.all[loop_id].price >= datapoint.price
+        recovered = true
+        recovery_point = DataPoint.all[loop_id]
+      end
+      loop_id += 1
+    end
+    recovery_point
+  end
+
   def self.market_crash_mins(fraction, time_in_months)
     peaks = market_peaks(fraction, time_in_months)
     mins = []
-    peaks.each_with_index do |peak, index|
-      if peaks[index+1].nil?
-        peak_2 = DataPoint.all.last
-      else
-        peak_2 = peaks[index+1]
-      end
-      mins << min_within_period(peak, peak_2)
+    peaks.each do |peak|
+      mins << min_within_period(peak, find_recovery(peak))
     end
     mins
   end
