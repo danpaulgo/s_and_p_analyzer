@@ -20,7 +20,13 @@ class AnalyzeData
     crashes = []
     DataPoint.all.each do |datapoint|
       # binding.pry
-      crashes << datapoint if datapoint.price <= datapoint.historical_max.price * fraction && (datapoint.id - datapoint.historical_max.id <= time_in_months)
+      loop_id = datapoint.id
+      valid_crash = false
+      until loop_id + time_in_months < datapoint.id || loop_id < 0
+        valid_crash = true if datapoint.price <= DataPoint.all[loop_id].price * fraction
+        loop_id -= 1
+      end
+      crashes << datapoint if valid_crash
     end
     crashes
   end
