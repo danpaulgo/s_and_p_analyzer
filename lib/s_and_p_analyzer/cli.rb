@@ -20,9 +20,24 @@ class CLI
 
   def option_6
     puts "Market crash definition"
-    decline >=1 && decline <= 100
-    until decline
-    decline = gets.chomp
+    decline = 0
+    timespan = 0
+    until decline >=1 && decline < 100
+      print "Set decrease percentage(1-99):"
+      decline = gets.strip.to_i
+    end
+    until timespan >= 1
+      print "Set timespan in months:"
+      timespan = gets.strip.to_i
+    end
+    decline_float = 1.0 - (decline.to_f/100.0)
+    market_peaks = AnalyzeData.market_peaks(decline_float, timespan)
+    market_crash_mins = AnalyzeData.market_crash_mins(decline_float, timespan)
+    binding.pry
+    puts "\nMARKET PEAKS"
+    DisplayData.display_points(market_peaks)
+    puts "\nMARKET BOTTOMS"
+    DisplayData.display_points(market_crash_mins)
   end
 
   def start
@@ -61,7 +76,7 @@ class CLI
       when "5"
         DisplayData.display_max_by_year
       when "6"
-        puts "code 6"
+        option_6
       when "7"
         valid_dates = [false,false]
         until valid_dates[0] == true
