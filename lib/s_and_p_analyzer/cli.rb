@@ -21,12 +21,13 @@ class CLI
   def start
     puts "\nWelcome to S&P Analyzer. Please choose from the following menu options:"
     puts "\n"
-    go = "y"
+    go = ""
     until go.downcase == "n"
       menu
       input = ""
+      puts "\n"
       until input.downcase == "q" || (input.to_i >= 1 && input.to_i <= 7)
-        print "\nItem No. (or \"q\" to exit): "
+        print "Item No. (or \"q\" to exit): "
         input = gets.strip
       end
       puts "\n"
@@ -72,8 +73,11 @@ class CLI
         go = "n"
       end
       if go != "n"
-        print "\nWould you like to complete another action? (y/n) "
-        go = gets.strip
+        puts "\n"
+        until go.downcase == "y" || go.downcase == "n"
+          print "Would you like to complete another action? (y/n) "
+          go = gets.strip
+        end
         puts "\n"
       end
     end

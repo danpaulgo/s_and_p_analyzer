@@ -30,11 +30,11 @@ class DisplayData
   def self.extended_info(date)
     datapoint = DataPoint.find_by_date(date)
     puts "-"*40
-    puts "Date: #{datapoint.date.strftime('%B %d, %Y')}"
+    puts "Date: #{datapoint.date.strftime('%B %d, %Y')}\n\n"
     puts "Price: #{display_price(datapoint.price)}"
     puts "Change over previous month: #{display_price(datapoint.monthly_change)}"
-    puts "Change over previous year: #{display_price(datapoint.yearly_change)}"
-    puts "Historical maximum(#{datapoint.historical_max.date.strftime('%m/%d/%Y')}): #{display_price(datapoint.historical_max.price)}"
+    puts "Change over previous year: #{'+' if datapoint.yearly_change > 0}#{display_price(datapoint.yearly_change)}"
+    puts "Historical maximum (#{datapoint.historical_max.date.strftime('%m/%d/%Y')}): #{display_price(datapoint.historical_max.price)}"
     puts "-"*40
   end
 
@@ -80,7 +80,8 @@ class DisplayData
   end
 
   def self.display_market_crash_info
-    puts "Market crash definition"
+    puts "A stock market crash may be defined as \"a rapid and often unanticipated decrease in stock prices.\" In order to distinguish crash periods within our data, we must specify the variables of \"rapidness\" (timespan) and \"decrease in stock price\". The decrease in stock price will be set using a percentage value and the timespan will be set using a number of months.\n\n"
+    puts "Example: Setting a decline percentage of '20' and a timespan of '12' will provide information for all stock market crashes where the price of the S&P 500 decreased by 20% within 1 year (12 months).\n\n"
     decline = 0
     timespan = 0
     until decline >=1 && decline < 100
