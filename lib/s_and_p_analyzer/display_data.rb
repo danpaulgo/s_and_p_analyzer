@@ -95,15 +95,14 @@ class DisplayData
     market_peaks = AnalyzeData.market_peaks(decline_float, timespan)
     market_bottoms = AnalyzeData.market_crash_mins(decline_float, timespan)
     market_peaks.each_with_index do |peak, index|
+      puts "-"*50
+      puts "CRASH #{index+1} INFO\n\n"
       crash = Crash.new(peak, market_bottoms[index])
-      puts crash.peak.date.strftime("%B %d, %Y")
-      puts crash.bottom.date.strftime("%B %d, %Y")
+      puts "Market Peak:      " + crash.peak.date.strftime("%B %d, %Y") + " - " + display_price(crash.peak.price)
+      puts "Market Trough:    " + crash.bottom.date.strftime("%B %d, %Y") + " - " + display_price(crash.bottom.price)
+      puts "Market Recovery:  "+ crash.recovery_point.date.strftime("%B %d, %Y") + " - " + display_price(crash.recovery_point.price)
     end
-
-    # puts "\nMARKET PEAKS"
-    # DisplayData.display_points(market_peaks)
-    # puts "\nMARKET BOTTOMS"
-    # DisplayData.display_points(market_crash_mins)
+    puts "-"*50
   end
 
   def self.display_comparison_info(date_1, date_2)
