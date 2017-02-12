@@ -18,28 +18,6 @@ class CLI
     puts "7. Compare two dates"
   end
 
-  def option_6
-    puts "Market crash definition"
-    decline = 0
-    timespan = 0
-    until decline >=1 && decline < 100
-      print "Set decrease percentage(1-99):"
-      decline = gets.strip.to_i
-    end
-    until timespan >= 1
-      print "Set timespan in months:"
-      timespan = gets.strip.to_i
-    end
-    decline_float = 1.0 - (decline.to_f/100.0)
-    market_peaks = AnalyzeData.market_peaks(decline_float, timespan)
-    market_crash_mins = AnalyzeData.market_crash_mins(decline_float, timespan)
-    binding.pry
-    puts "\nMARKET PEAKS"
-    DisplayData.display_points(market_peaks)
-    puts "\nMARKET BOTTOMS"
-    DisplayData.display_points(market_crash_mins)
-  end
-
   def start
     puts "\nWelcome to S&P Analyzer. Please choose from the following menu options:"
     puts "\n"

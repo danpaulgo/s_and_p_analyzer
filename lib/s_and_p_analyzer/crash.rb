@@ -11,6 +11,8 @@ class Crash
     @crash_period = bottom_id - peak_id
   end
 
-
+  def find_recovery
+    
+  end
 
 end
