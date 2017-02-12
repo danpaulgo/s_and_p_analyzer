@@ -32,7 +32,6 @@ class AnalyzeData
         peaks << datapoint if datapoint.price == crash.historical_max.price && datapoint.price == datapoint.historical_max.price && !peaks.include?(datapoint)
       end
     end
-    peaks << max_within_period(peaks.last, DataPoint.all.last)
     peaks
   end
 
