@@ -10,6 +10,8 @@ Install using gem command: `gem install s_and_p_analyzer`
 
 After installation, run `sp500_analyzer` and choose from one of the seven menu options
 
+** When using the "Market crash info" function, make sure to read through the given instructions in order to define your own stock market crash parameters
+ 
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
