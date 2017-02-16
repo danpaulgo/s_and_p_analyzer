@@ -32,7 +32,7 @@ class DisplayData
     puts "-"*40
     puts "Date: #{datapoint.date.strftime('%B %d, %Y')}\n\n"
     puts "Price: #{display_price(datapoint.price)}"
-    puts "Change over previous month: #{display_price(datapoint.monthly_change)}"
+    puts "Change over previous month: #{'+' if datapoint.monthly_change > 0}#{display_price(datapoint.monthly_change)}"
     puts "Change over previous year: #{'+' if datapoint.yearly_change > 0}#{display_price(datapoint.yearly_change)}"
     puts "Historical maximum (#{datapoint.historical_max.date.strftime('%m/%d/%Y')}): #{display_price(datapoint.historical_max.price)}"
     puts "-"*40
@@ -114,7 +114,7 @@ class DisplayData
       datapoint2 = DataPoint.find_by_date(date_1)
     end
     difference = datapoint2.price - datapoint1.price
-    string_difference = display_price(difference)
+    string_difference = "#{'+' if difference > 0}#{display_price(difference)}"
     high = AnalyzeData.max_within_period(datapoint1,datapoint2)
     low = AnalyzeData.min_within_period(datapoint1,datapoint2)
     puts "-"*50

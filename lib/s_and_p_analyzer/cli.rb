@@ -48,7 +48,7 @@ class CLI
       when "4"
         valid_date = false
         until valid_date == true
-          print "Enter date (mm/yyyy): "
+          print "Enter month (mm/yyyy): "
           date = gets.strip
           valid_date = DisplayData.validate_date(date)
         end
@@ -60,12 +60,12 @@ class CLI
       when "7"
         valid_dates = [false,false]
         until valid_dates[0] == true
-          print "Enter first date (mm/yyyy): "
+          print "Enter first month (mm/yyyy): "
           date_1 = gets.strip
           valid_dates[0] = DisplayData.validate_date(date_1)
         end
         until valid_dates[1] == true
-          print "Enter second date (mm/yyyy): "
+          print "Enter second month (mm/yyyy): "
           date_2 = gets.strip
           valid_dates[1] = DisplayData.validate_date(date_2)
         end
