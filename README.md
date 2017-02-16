@@ -1,28 +1,14 @@
-# SAndPAnalyzer
+# S&P 500 Analyzer
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/s_and_p_analyzer`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem is created to analyze all monthly pricing data from the S&P 500. Each datapoint is pulled from multpl.com's "S&P 500 Historical Prices by Month" chart which includes opening prices from the first of each month as early as January, 1871. Since the S&P 500 did not come into existence until 1957, all price data before this point are estimates of what a similar index would project given historical market conditions. These estimates come from the research and writing of Robert Shiller, presented in his book "Irrational Exuberance." Using this data, users are able to analyze and compare market conditions and pricing over long periods of time. 
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 's_and_p_analyzer'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install s_and_p_analyzer
+Install using gem command: `gem install s_and_p_analyzer`
 
 ## Usage
 
-TODO: Write usage instructions here
+After installation, run `sp500_analyzer` and choose from one of the seven menu options
 
 ## Development
 
@@ -32,5 +18,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/s_and_p_analyzer.
+Bug reports and pull requests are welcome on GitHub at https://github.com/danpaulgo/s_and_p_analyzer.
 
