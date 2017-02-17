@@ -34,9 +34,7 @@ class AnalyzeData
   def self.market_peaks(fraction, time_in_months)
     peaks = []
     market_crashes(fraction, time_in_months).each do |crash|
-      DataPoint.all.each do |datapoint|
-        peaks << datapoint if datapoint.price == crash.historical_max.price && datapoint.price == datapoint.historical_max.price && !peaks.include?(datapoint)
-      end
+      peaks << crash.historical_max if !peaks.include?(crash.historical_max)
     end
     peaks
   end
