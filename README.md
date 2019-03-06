@@ -4,7 +4,7 @@ This gem is created to analyze all monthly pricing data from the S&P 500. Each d
 
 ## Installation
 
-Install using gem command: `gem install s_and_p_analyzer`
+Install using gem command: `gem install sp500_analyzer`
 
 ## Usage
 
